@@ -18,7 +18,23 @@
 ```console
   npx playwright install --with-deps
 ```
-7. Run tests (locally: then credentials, urls should be replaced with real ones ($MANAGER_ID replaced and so on). In CI these are taken from secrets)
+7. Run tests with local.env file (in CI values are passed as secrets)
 ```console
-  NODE_MANAGER_ID=$MANAGER_ID NODE_MANAGER_USERNAME=$MANAGER_USERNAME NODE_MANAGER_PASSWORD=$MANAGER_PASSWORD NODE_EMPLOYEE_ID=$EMPLOYEE_ID NODE_EMPLOYEE_USERNAME=$EMPLOYEE_USERNAME NODE_EMPLOYEE_PASSWORD=$EMPLOYEE_PASSWORD NODE_API_LOGIN_URL=$API_LOGIN_URL NODE_BASIC_AUTH_TOKEN=$BASIC_AUTH_TOKEN NODE_API_URL2=$API_URL2 npx playwright test
+  Create local.env file in the root folder of the project
+```
+```console
+Add values as key value pairs into local.env file:
+NODE_MANAGER_ID=EXPECTED_VALUE
+NODE_MANAGER_USERNAME=EXPECTED_VALUE
+NODE_MANAGER_PASSWORD=EXPECTED_VALUE
+NODE_EMPLOYEE_ID=EXPECTED_VALUE
+NODE_EMPLOYEE_USERNAME=EXPECTED_VALUE
+NODE_EMPLOYEE_PASSWORD=EXPECTED_VALUE
+NODE_API_LOGIN_URL=EXPECTED_VALUE
+NODE_BASIC_AUTH_TOKEN=EXPECTED_VALUE
+NODE_API_URL2=EXPECTED_VALUE
+NODE_FE_URL=EXPECTED_VALUE
+```
+```console
+ npx playwright test
 ```
