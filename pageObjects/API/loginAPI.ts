@@ -1,5 +1,10 @@
 import { APIRequestContext, expect } from "@playwright/test"
 
+var defaultHeader = {
+    'Content-Type': 'application/json',
+    "Authorization": `Basic ${process.env.NODE_BASIC_AUTH_TOKEN}`
+}
+
 export default class LoginAPI {
     readonly request: APIRequestContext;
     constructor(request: APIRequestContext) {
@@ -10,9 +15,10 @@ export default class LoginAPI {
      * /login/credentials: POST request.
      * @param username username
      * @param password password
+     * @param requestHeader
      * @returns Promise
      */
-    async postUserCredentials(username: string, password: string) {
+    async postUserCredentials(username: string, password: string, requestHeader = defaultHeader) {
         console.log('[/login/credential]: POST request.')
         return await this.request.post(`${process.env.NODE_API_LOGIN_URL}/login/credential`, {
             data: {
@@ -20,8 +26,7 @@ export default class LoginAPI {
                 "loginPassword": password
             },
             headers: {
-                'Content-Type': 'application/json',
-                "Authorization": `Basic ${process.env.NODE_BASIC_AUTH_TOKEN}`
+                ...requestHeader
             }
         })
     }
@@ -46,9 +51,10 @@ export default class LoginAPI {
      * [/login/session] POST request.
      * @param credentialToken 
      * @param employeeId 
+     * @param requestHeader
      * @returns apiResponse Promise<APIResponse>
      */
-    async postSession(credentialToken: string, employeeId: number) {
+    async postSession(credentialToken: string, employeeId: number, requestHeader = defaultHeader) {
         console.log('[/login/session] POST request.')
         return await this.request.post(`${process.env.NODE_API_LOGIN_URL}/login/session`, {
             data: {
@@ -56,8 +62,7 @@ export default class LoginAPI {
                 "employeeId": employeeId
             },
             headers: {
-                'Content-Type': 'application/json',
-                "Authorization": `Basic ${process.env.NODE_BASIC_AUTH_TOKEN}`
+                ...requestHeader
             }
         })
     }

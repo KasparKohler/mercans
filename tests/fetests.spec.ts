@@ -9,10 +9,18 @@ import RequestApprovalModalFE from "../pageObjects/FE/LEAVES/requestApprovalModa
 import LeaveRequestData from "../testData/leaveRequestData";
 import Employees from "../testData/employees";
 
+var loginPageFE: LoginPageFE;
+var homePageFE: HomePageFE;
+var basePageFE: BasePageFE;
+
+test.beforeEach('Open FE homepage', async ({ page }) => {
+    await page.goto(`${process.env.NODE_FE_URL}`);
+    loginPageFE = new LoginPageFE(page);
+    homePageFE = new HomePageFE(page);
+    basePageFE = new BasePageFE(page);
+})
+
 test('Create Annual leave to worker', async ({ page }) => {
-    await page.goto('https://access.hrblizz.dev/login');
-    const loginPageFE = new LoginPageFE(page);
-    const homePageFE = new HomePageFE(page);
     const myLeavesPageFE = new MyLeavesPageFE(page);
     const newLeaveRequestPageFE = new NewLeaveRequestPageFE(page);
     await loginPageFE.logInWithUsernameAndPassword(Employees.employee.username, Employees.employee.password);
@@ -23,9 +31,6 @@ test('Create Annual leave to worker', async ({ page }) => {
 })
 
 test('Reject annual vacation request by manager', async ({ page }) => {
-    await page.goto('https://access.hrblizz.dev/login');
-    const loginPageFE = new LoginPageFE(page);
-    const basePageFE = new BasePageFE(page);
     const managerLeavesFE = new ManagerLeavesFE(page);
     const requestApprovalModalFE = new RequestApprovalModalFE(page);
     await loginPageFE.logInWithUsernameAndPassword(Employees.manager.username, Employees.manager.password);
