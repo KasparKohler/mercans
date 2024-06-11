@@ -1,4 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
+
+if (process.env.CI == undefined) {
+  dotenv.config({ path: "local.env" });
+}
 
 /**
  * Read environment variables from file.
